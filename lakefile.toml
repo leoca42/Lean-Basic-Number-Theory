@@ -1,0 +1,10 @@
+name = "BasicNumberTheory"
+version = "0.1.0"
+defaultTargets = ["basicnumbertheory"]
+
+[[lean_lib]]
+name = "BasicNumberTheory"
+
+[[lean_exe]]
+name = "basicnumbertheory"
+root = "Main"
