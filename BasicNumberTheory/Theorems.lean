@@ -1,12 +1,5 @@
 import BasicNumberTheory.Definitions
-
-
-/-
-Format here is ⟨witness, proof⟩
--/
-theorem even_two : isEven 2 := ⟨1, rfl⟩
-
-theorem odd_one : isOdd 1 := ⟨0, rfl⟩
+import Mathlib.Data.Nat.Parity
 
 theorem every_n_is_even_or_odd (n : Nat) : isEven n ∨ isOdd n :=
   sorry
@@ -31,4 +24,13 @@ theorem isEven_iff_not_isOdd (n : Int) : isEven n ↔ ¬ isOdd n :=
 theorem isOdd_iff_not_isEven (n : Int) : isOdd n ↔ ¬ isEven n :=
   sorry
 
-theorem even_times_even (m n : Nat)
+
+-- format: theorem name (parameters) (hypotheses) : (conclusion) := proof
+theorem even_squared_is_even {Even} (n : Nat) (h : Even n) : Even (n^2) := by
+  /-
+  Suppose n is even
+  Then there exists k : Nat such that n = 2*k
+  Then n^2 = (2*k)^2 = 4*k^2 = 2*(2*k^2)
+  As k is a Nat, so is 2*k^2
+  Thus n^2 is even
+  -/
