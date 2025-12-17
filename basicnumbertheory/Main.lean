@@ -1,6 +1,6 @@
-import BasicNumberTheory
+import Basicnumbertheory
 
-import Mathlib.Data.Nat.Parity
+import Mathlib.Algebra.Ring.Parity
 
 #check Nat.even 10
 #check Nat.odd 11
