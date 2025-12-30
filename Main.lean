@@ -104,7 +104,7 @@ theorem triangle_numbers (n : Nat) : triangle n = n * (n + 1) / 2 := by
                         · skip
                         · rw [h1]   -- where h : (n+1) = 2 * (n+1) / 2
                 have h_add_div : (n * (n + 1) / 2 + (n + 1) * 2 / 2) = (n * (n + 1) + 2 * (n + 1)) / 2 := by
-                        sorry
+                        sorry --placeholder for figuring out the proper syntax for this later
                 rw [h_add_div]
                 have h3 : (n * (n + 1) + 2 * (n + 1)) = ((n + 2) * (n + 1)) := by
                         ring
