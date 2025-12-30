@@ -1,4 +1,3 @@
-import Basicnumbertheory
 import Mathlib.Tactic.Ring
 /-
 Syntax:
