@@ -92,6 +92,10 @@ theorem triangle_numbers (n : Nat) : triangle n = n * (n + 1) / 2 := by
         | zero =>
                 simp [triangle]
         | succ n ih =>
+                /-
+                Tactic here is the write multiple smaller hypotheses of precise algebra steps
+                then rewrite the main goal step by step using those hypotheses
+                -/
                 simp [triangle]
                 rw [ih]
                 have h1 : (n + 1) = ((n + 1) * 2) / 2 := by
@@ -106,11 +110,15 @@ theorem triangle_numbers (n : Nat) : triangle n = n * (n + 1) / 2 := by
                         sorry --placeholder for figuring out the proper syntax for this later
                 rw [h_add_div]
                 have h3 : (n * (n + 1) + 2 * (n + 1)) = ((n + 2) * (n + 1)) := by
-                        ring
+                        ring -- Lean's pre-built simplifier can solve this
                 rw [h3]
                 have h4 : (n + 2) = ((n + 1) + 1) := by
-                        simp
+                        simp -- Another of Lean's pre-built simplifiers
                 rw [h4]
+                have h5 : ((n + 1 + 1) * (n + 1)) / 2 = ((n + 1) * (n + 1 + 1)) / 2 := by
+                        sorry --placeholder for figuring out the proper syntax for this later
+                rw [h5]
+
 
                 /-
                 triangle (n + 1) = triangle n + (n + 1)
