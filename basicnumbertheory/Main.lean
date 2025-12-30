@@ -104,10 +104,14 @@ theorem triangle_numbers (n : Nat) : triangle n = n * (n + 1) / 2 := by
                         · skip
                         · rw [h1]   -- where h : (n+1) = 2 * (n+1) / 2
                 have h_add_div : (n * (n + 1) / 2 + (n + 1) * 2 / 2) = (n * (n + 1) + 2 * (n + 1)) / 2 := by
-                        rw [Nat.mul_add]
+                        sorry
+                rw [h_add_div]
+                have h3 : (n * (n + 1) + 2 * (n + 1)) = ((n + 2) * (n + 1)) := by
+                        ring
+                rw [h3]
+                have h4 : (n + 2) = ((n + 1) + 1) := by
                         simp
-
-
+                rw [h4]
 
                 /-
                 triangle (n + 1) = triangle n + (n + 1)
