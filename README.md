@@ -1,6 +1,10 @@
 # basicnumbertheory
 
-A Lean 4 project for basic number theory, built with Mathlib.
+A Lean 4 project for basic number theory. This was mostly to familiarize myself with using Lean in VS Code and building dependencies to the Mathlib library.
+
+Main.lean contains a few definitions and (incomplete) proofs I did to get familiar with Lean syntax
+
+Everything else is infrastructure.
 
 ## About Mathlib
 

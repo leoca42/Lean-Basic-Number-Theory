@@ -1,4 +1,19 @@
 import Mathlib.Tactic.Ring
+
+/-
+This is just a list of basic number theory proofs I've been doing to
+1. Learn Lean syntax
+2. Get familiar with writing proofs in a proof assistant
+
+So far (Dec 31st, 2025)
+- Definitions of even and odd natural numbers
+        (I know Mathlib has them but wanted to rewrite anyways)
+- Proofs for even squared is even, odd squared is odd
+- Recursive formulas for triangle numbers and sum of squares
+- Proof for triangle numbers formula (INCOMPLETE)
+- Proof for sum of squares formula (INCOMPLETE)
+-/
+
 /-
 Syntax:
 - def defines a new term (constant, function, or type)
@@ -32,61 +47,27 @@ theorem even_squared_is_even (n : Nat) (h : EvenO n) : EvenO (n * n) := by
 
     -- So, we're done!
 
-/-
-theorem odd_squared_is_odd (n : Nat) (h : OddO n) : OddO (n * n) := by
-        rcases h with ⟨k, hk⟩
-        refine ⟨k * (2 * k + 2), ?_⟩
-        /-
-        n * n = (2 * k + 1) * (2 * k + 1)
-                = 4 * k * k + 4 * k + 1
-                = 2 * (2 * k * k + 2 * k) + 1
-                = 2 * (k * (2 * k + 2)) + 1
-        -/
-        calc
-        n * n
-            = (2 * k + 1) * (2 * k + 1) := by simp [hk]
-        _   = (2 * k) * (2 * k + 1) + 1 * (2 * k + 1) := by
-                -- (a + b) * c = a*c + b*c
-                simp [Nat.add_mul]
-        _   = ((2 * k) * (2 * k) + (2 * k) * 1) + (1 * (2 * k) + 1 * 1) := by
-                -- a*(b + c) = a*b + a*c
-                simp [Nat.mul_add, Nat.add_assoc]
-        _   = (2 * k) * (2 * k) + (2 * k) + (2 * k) + 1 := by
-                -- simplify 1-multiplications and flatten additions
-                simp [Nat.add_assoc, Nat.add_comm, Nat.add_left_comm]
-        _   = 2 * (k * (2 * k)) + (2 * k) + (2 * k) + 1 := by
-                -- reassociate (2*k)*(2*k) = 2*(k*(2*k))
-                have h1 : (2 * k) * (2 * k) = 2 * (k * (2 * k)) := by
-                  rw [Nat.mul_assoc, Nat.mul_comm k, Nat.mul_assoc]
-                rw [h1]
-        _   = 2 * (k * (2 * k)) + 2 * (2 * k) + 1 := by
-                -- combine like terms: (2*k) + (2*k) = 2*(2*k)
-                have h2 : (2 * k) + (2 * k) = 2 * (2 * k) := by
-                  rw [← Nat.two_mul]
-                simp [h2, Nat.add_assoc]
-        _   = 2 * (k * (2 * k) + 2 * k) + 1 := by
-                -- factor out 2
-                simp [Nat.mul_add, Nat.add_assoc]
-        _   = 2 * (k * (2 * k + 2)) + 1 := by
-                -- distribute k over (2*k + 2)
-                simp [Nat.mul_add, Nat.add_assoc]
--/
 
-
-theorem odd_sq_is_odd_alt (n : Nat) (h : OddO n) : OddO (n * n) := by
+theorem odd_sq_is_odd (n : Nat) (h : OddO n) : OddO (n * n) := by
         rcases h with ⟨k, hk⟩
         refine ⟨k * (2 * k + 2), ?_⟩
         rw [hk]
         ring
 
-
+/-
+Defines a recursive function for the triangle numbers
+-/
 def triangle : Nat → Nat
  | 0     => 0
  | n + 1 => triangle n + (n + 1)
 
 
 
-
+/-
+Proves that the nth triangle number is n * (n + 1) / 2
+This is the closed-form formula for triangle numbers
+- Uses induction on n
+-/
 theorem triangle_numbers (n : Nat) : triangle n = n * (n + 1) / 2 := by
         induction n with
         | zero =>
@@ -119,12 +100,19 @@ theorem triangle_numbers (n : Nat) : triangle n = n * (n + 1) / 2 := by
                         sorry --placeholder for figuring out the proper syntax for this later
                 rw [h5]
 
+/-
+Recursive definition for ∑_{k=0}^{n} k^2
+-/
+def triangle_of_squares : Nat → Nat
+ | 0    => 0
+ | n + 1 => triangle_of_squares n + (n + 1) * (n + 1)
 
-                /-
-                triangle (n + 1) = triangle n + (n + 1)
-                                 = n * (n + 1) / 2 + (n + 1) by ih
-                                 = (n * (n + 1) + 2 * (n + 1)) / 2
-                                 = ((n + 2) * (n + 1)) / 2
-                                 = ((n + 1) * ((n + 1) + 1)) / 2
-                which is the ih in the succ case
-                -/
+/-
+Proving ∑_{k=0}^{n} k^2 = n(n+1)(2n+1)/6
+-/
+theorem sum_of_squares_formula (n : Nat) : triangle_of_squares n = n * (n + 1) * (2 * n + 1) / 6 := by
+        induction n with
+        | zero =>
+                simp [triangle_of_squares]
+        | succ n ih =>
+                sorry -- I love this keyword!
